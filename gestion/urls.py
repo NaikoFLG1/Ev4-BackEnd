@@ -16,6 +16,6 @@ router.register(r'work-orders', WorkOrderViewSet, basename='workorder')
 urlpatterns = [
     path('', include(router.urls)),
     path('health/', HealthView.as_view(), name='health'),
-    path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

@@ -4,6 +4,7 @@ from .views import (
     CompanyViewSet, EquipmentViewSet, TechnicianViewSet,
     MaintenancePlanViewSet, WorkOrderViewSet, HealthView
 )
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = DefaultRouter()
 router.register(r'companies', CompanyViewSet, basename='company')
@@ -15,4 +16,6 @@ router.register(r'work-orders', WorkOrderViewSet, basename='workorder')
 urlpatterns = [
     path('', include(router.urls)),
     path('health/', HealthView.as_view(), name='health'),
+    path('api/auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

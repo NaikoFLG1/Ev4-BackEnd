@@ -2,7 +2,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Company, Equipment, Technician, MaintenancePlan, WorkOrder
-from serializers import (
+from .serializers import (
     CompanySerializer, EquipmentSerializer, TechnicianSerializer,
     MaintenancePlanSerializer, WorkOrderSerializer
 )

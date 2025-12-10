@@ -2,7 +2,14 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Company(models.Model):
-    """Empresa cliente."""
+    """Empresa cliente.
+
+    Campos:
+    - name: nombre de la empresa
+    - address: dirección
+    - rut: identificador fiscal (único)
+    - created_at: fecha de creación (auto)
+    """
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     rut = models.CharField(max_length=12, unique=True)
@@ -13,7 +20,10 @@ class Company(models.Model):
 
 
 class Equipment(models.Model):
-    """Equipo asociado a una empresa."""
+    """Equipo asociado a una empresa.
+
+    Relación: pertenece a `Company`.
+    """
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='equipments')
     name = models.CharField(max_length=255)
     serial_number = models.CharField(max_length=100, unique=True)
@@ -25,7 +35,10 @@ class Equipment(models.Model):
 
 
 class Technician(models.Model):
-    """Técnico vinculado a un usuario del sistema."""
+    """Técnico vinculado a un usuario del sistema.
+
+    Cada técnico referencia a un `User` del sistema.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='technician_profile')
     full_name = models.CharField(max_length=255)
     specialty = models.CharField(max_length=255)
@@ -36,7 +49,12 @@ class Technician(models.Model):
 
 
 class MaintenancePlan(models.Model):
-    
+    """Plan de mantención para un equipo.
+
+    - equipment: equipo objetivo
+    - frequency_days: intervalo en días
+    - active: bandera de estado
+    """
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE, related_name='maintenance_plans')
     name = models.CharField(max_length=255)
     frequency_days = models.PositiveIntegerField()
@@ -47,7 +65,10 @@ class MaintenancePlan(models.Model):
 
 
 class WorkOrder(models.Model):
-    """Orden de trabajo de mantención."""
+    """Orden de trabajo de mantención.
+
+    Campos principales: plan, equipment, technician, status, fechas y notas.
+    """
     STATUS_CHOICES = [
         ('scheduled', 'Programada'),
         ('in_progress', 'En progreso'),

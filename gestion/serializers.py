@@ -7,6 +7,13 @@ class CompanySerializer(serializers.ModelSerializer):
         model = Company
         fields = ['id', 'name', 'address', 'rut', 'created_at']
 
+    def validate_rut(self, value):
+        if not value:
+            raise serializers.ValidationError("RUT requerido")
+        if len(value) > 12:
+            raise serializers.ValidationError("RUT demasiado largo")
+        return value
+
 
 class EquipmentSerializer(serializers.ModelSerializer):
     company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all())

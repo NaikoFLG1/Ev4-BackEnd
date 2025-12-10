@@ -1,3 +1,8 @@
+"""Viewsets y endpoints de la API de mantención.
+
+Contiene `ModelViewSet` para cada entidad y un endpoint de health.
+"""
+
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -8,7 +13,10 @@ from .serializers import (
 )
 
 class CompanyViewSet(viewsets.ModelViewSet):
-    """CRUD para empresas."""
+    """CRUD para empresas.
+
+    Permisos: lectura pública, escritura solo para usuarios autenticados.
+    """
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -43,7 +51,10 @@ class WorkOrderViewSet(viewsets.ModelViewSet):
 
 
 class HealthView(APIView):
-    """Endpoint de prueba para validar el servicio."""
+    """Endpoint de prueba para validar el servicio.
+
+    Responde con JSON indicando disponibilidad del servicio.
+    """
     permission_classes = [permissions.AllowAny]
 
     def get(self, request, *args, **kwargs):

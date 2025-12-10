@@ -90,4 +90,16 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'API Mantención Industrial Biobío',
     'DESCRIPTION': 'Registro de empresas, equipos, técnicos, planes y órdenes de trabajo.',
     'VERSION': '1.0.0',
+    'SECURITY': [
+        {'bearerAuth': []},
+    ],
+    'COMPONENTS': {
+        'securitySchemes': {
+            'bearerAuth': {
+                'type': 'http',
+                'scheme': 'bearer',
+                'bearerFormat': 'JWT',
+            }
+        }
+    },
 }

@@ -1,3 +1,4 @@
 from django.contrib import admin
+from .models import Company, Equipment, Technician, MaintenancePlan, WorkOrder
 
-# Register your models here.
+admin.site.register([Company, Equipment, Technician, MaintenancePlan, WorkOrder])
